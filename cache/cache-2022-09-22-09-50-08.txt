@@ -1,0 +1,1 @@
+"{\"success\":true,\"payload\":{\"id\":\"20220916\",\"date\":{\"day\":16,\"month\":9,\"year\":2022},\"results\":[{\"number\":\"127754\",\"result\":[],\"isWin\":false}]}}"
