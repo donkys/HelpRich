@@ -65,13 +65,13 @@ def callback():
 
 @app.route('/', methods=['GET'])
 def main():
-    return '<h1>HELLO KUB<\h>'
+    return '<h1>HELLO KUB</h>'
 
 def reply(intent,text,reply_token,id,disname,session,lottonum,object,date,dreamtype,typeofstat):
     
     headers = {
-            "X-RapidAPI-Key": "66b2437ebfmshdba6920bcd27d69p1a51e4jsn21c790f0cb95",
-            "X-RapidAPI-Host": "thai-lottery-result.p.rapidapi.com"
+            "X-RapidAPI-Key": "ef84c01068mshb5691d5b16962bap144153jsn57b0ab53dd0e",
+	        "X-RapidAPI-Host": "thai-lottery-result.p.rapidapi.com"
         }
 
     if intent == 'ทดสอบ':
@@ -108,8 +108,8 @@ def reply(intent,text,reply_token,id,disname,session,lottonum,object,date,dreamt
         payload = "date="+date+"&lottery_number="+lotto
         headers = {
             "content-type": "application/x-www-form-urlencoded",
-            "X-RapidAPI-Key": "66b2437ebfmshdba6920bcd27d69p1a51e4jsn21c790f0cb95",
-            "X-RapidAPI-Host": "thai-lottery-result.p.rapidapi.com"
+            "X-RapidAPI-Key": "ef84c01068mshb5691d5b16962bap144153jsn57b0ab53dd0e",
+	        "X-RapidAPI-Host": "thai-lottery-result.p.rapidapi.com"
         }
 
         response = requests.request("POST", url, data=payload, headers=headers)
