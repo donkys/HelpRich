@@ -252,9 +252,9 @@ def reply(intent,text,reply_token,id,disname,session,lottonum,object,date,dreamt
 
         for i in range(len(data)):
             if i == (len(data) - 1):
-                result = result + 'หมายเลข '+str(data[i]['number'])+'\tเคยออกมา '+str(data[i]['sum'])+'ครั้ง'
+                result = result + 'หมายเลข '+str(data[i]['number'])+'   เคยออกมา '+str(data[i]['sum'])+'ครั้ง'
             else:
-                result = result + 'หมายเลข '+str(data[i]['number'])+'\tเคยออกมา '+str(data[i]['sum'])+'ครั้ง\n'
+                result = result + 'หมายเลข '+str(data[i]['number'])+'   เคยออกมา '+str(data[i]['sum'])+'ครั้ง\n'
 
         print(result)
         text_message = TextSendMessage(text=result)
