@@ -110,7 +110,7 @@ def reply(intent,text,reply_token,id,disname,session,lottonum,object,date,dreamt
             "content-type": "application/x-www-form-urlencoded",
             "X-RapidAPI-Key": "ef84c01068mshb5691d5b16962bap144153jsn57b0ab53dd0e",
 	        "X-RapidAPI-Host": "thai-lottery-result.p.rapidapi.com"
-        }
+            }
 
         response = requests.request("POST", url, data=payload, headers=headers)
         json_data = json.loads(response.text)
@@ -137,7 +137,7 @@ def reply(intent,text,reply_token,id,disname,session,lottonum,object,date,dreamt
         line_bot_api.reply_message(reply_token,text_message)
 
     if intent == 'ผลสลากกินแบ่งงวดล่าสุด':
-        #text_message = TextSendMessage(text='Test เสดละเว้ยยยย')
+        #text_message = TextSendMessage(text='ทดสอบ Intent สำเร็จ')
 
         url = "https://thai-lottery-result.p.rapidapi.com/"
         querystring = {"page":"1"}
@@ -162,30 +162,38 @@ def reply(intent,text,reply_token,id,disname,session,lottonum,object,date,dreamt
         month = json_data['payload']['date']['month']
         year = json_data['payload']['date']['year']
 
+        firstprizenum = ''
+        secondprizenum = ''
+        thirdprizenum = ''
+
         firstprize_data = json_data['payload']['results']['FirstPrize']
-        firstprizenum = firstprize_data['numbers'][0]
         firstprizeprice = firstprize_data['info']['prizeMoney']
         firstprizeamount = firstprize_data['info']['amount']
-        firstprize = '\nรางวัลที่ 1 หมายเลข {} \nมูลค่า {} จำนวน {} รางวัล'.format(str(firstprizenum).zfill(6),firstprizeprice,firstprizeamount)
+        for i in range(firstprizeamount):
+            firstprizenum += '\U00002796 หมายเลข: '+str(firstprize_data['numbers'][i]).zfill(6)+'\n'
+        firstprize = '\U00002B50 รางวัลที่ 1 \U00002B50\nมูลค่า {} จำนวน {} รางวัล\n{}'.format(str(format(firstprizeprice, ',d')),firstprizeamount,firstprizenum)
 
         secondprize_data = json_data['payload']['results']['SecondPrize']
-        secondprizenum = secondprize_data['numbers'][0]
         secondprizeprice = secondprize_data['info']['prizeMoney']
         secondprizeamount = secondprize_data['info']['amount']
-        secondprize = '\nรางวัลที่ 2 หมายเลข {} \nมูลค่า {} จำนวน {} รางวัล'.format(str(secondprizenum).zfill(6),secondprizeprice,secondprizeamount)
+        for i in range(secondprizeamount):
+            secondprizenum += '\U00002796 หมายเลข: '+str(secondprize_data['numbers'][i]).zfill(6)+'\n'
+        secondprize = '\U00002B50 รางวัลที่ 2 \U00002B50\nมูลค่า {} จำนวน {} รางวัล\n{}'.format(str(format(secondprizeprice, ',d')),secondprizeamount,secondprizenum)
 
         thirdprize_data = json_data['payload']['results']['ThirdPrize']
-        thirdprizenum = thirdprize_data['numbers'][0]
         thirdprizeprice = thirdprize_data['info']['prizeMoney']
         thirdprizeamount = thirdprize_data['info']['amount']
-        thirdprize = '\nรางวัลที่ 3 หมายเลข {} \nมูลค่า {} จำนวน {} รางวัล'.format(str(thirdprizenum).zfill(6),thirdprizeprice,thirdprizeamount)
-
+        for i in range(thirdprizeamount):
+            thirdprizenum += '\U00002796 หมายเลข: '+str(thirdprize_data['numbers'][i]).zfill(6)+'\n'
+        thirdprize = '\U00002B50 รางวัลที่ 3 \U00002B50\nมูลค่า {} จำนวน {} รางวัล\n{}'.format(str(format(thirdprizeprice, ',d')),thirdprizeamount,thirdprizenum)
         
-        text_message = TextSendMessage(text='สลากกินแบ่งรัฐบาลงวดที่ {}/{}/{} \n{} \n{} \n{}'.format(day,str(month).zfill(2),year,firstprize,secondprize,thirdprize))
+        result = f'สลากกินแบ่งรัฐบาลงวดที่ {day}/{month}/{year} \n{firstprize}{secondprize}{thirdprize}'
+
+        text_message = TextSendMessage(text=result)
         line_bot_api.reply_message(reply_token,text_message)
 
     if intent == 'ผลหวยงวดที่ต้องการinput':
-    #text_message = TextSendMessage(text='Test เสดละเว้ยยยย')
+    #text_message = TextSendMessage(text='ทดสอบ Intent สำเร็จ')
 
         url = "https://thai-lottery-result.p.rapidapi.com/results/"
 
@@ -208,27 +216,36 @@ def reply(intent,text,reply_token,id,disname,session,lottonum,object,date,dreamt
         month = json_data['payload']['date']['month']
         year = json_data['payload']['date']['year']
 
+        firstprizenum = ''
+        secondprizenum = ''
+        thirdprizenum = ''
+
         firstprize_data = json_data['payload']['results']['FirstPrize']
-        firstprizenum = firstprize_data['numbers'][0]
         firstprizeprice = firstprize_data['info']['prizeMoney']
         firstprizeamount = firstprize_data['info']['amount']
-        firstprize = '\nรางวัลที่ 1 หมายเลข {} \nมูลค่า {} จำนวน {} รางวัล'.format(str(firstprizenum).zfill(6),firstprizeprice,firstprizeamount)
+        for i in range(firstprizeamount):
+            firstprizenum += '\U00002796 หมายเลข: '+str(firstprize_data['numbers'][i]).zfill(6)+'\n'
+        firstprize = '\U00002B50 รางวัลที่ 1 \U00002B50\nมูลค่า {} จำนวน {} รางวัล\n{}'.format(str(format(firstprizeprice, ',d')),firstprizeamount,firstprizenum)
 
         secondprize_data = json_data['payload']['results']['SecondPrize']
-        secondprizenum = secondprize_data['numbers'][0]
         secondprizeprice = secondprize_data['info']['prizeMoney']
         secondprizeamount = secondprize_data['info']['amount']
-        secondprize = '\nรางวัลที่ 2 หมายเลข {} \nมูลค่า {} จำนวน {} รางวัล'.format(str(secondprizenum).zfill(6),secondprizeprice,secondprizeamount)
+        for i in range(secondprizeamount):
+            secondprizenum += '\U00002796 หมายเลข: '+str(secondprize_data['numbers'][i]).zfill(6)+'\n'
+        secondprize = '\U00002B50 รางวัลที่ 2 \U00002B50\nมูลค่า {} จำนวน {} รางวัล\n{}'.format(str(format(secondprizeprice, ',d')),secondprizeamount,secondprizenum)
 
         thirdprize_data = json_data['payload']['results']['ThirdPrize']
-        thirdprizenum = thirdprize_data['numbers'][0]
         thirdprizeprice = thirdprize_data['info']['prizeMoney']
         thirdprizeamount = thirdprize_data['info']['amount']
-        thirdprize = '\nรางวัลที่ 3 หมายเลข {} \nมูลค่า {} จำนวน {} รางวัล'.format(str(thirdprizenum).zfill(6),thirdprizeprice,thirdprizeamount)
-            
-        text_message = TextSendMessage(text='สลากกินแบ่งรัฐบาลงวดที่ {}/{}/{} \n{} \n{} \n{}'.format(day,str(month).zfill(2),year,firstprize,secondprize,thirdprize))
-        line_bot_api.reply_message(reply_token,text_message)
+        for i in range(thirdprizeamount):
+            thirdprizenum += '\U00002796 หมายเลข: '+str(thirdprize_data['numbers'][i]).zfill(6)+'\n'
+        thirdprize = '\U00002B50 รางวัลที่ 3 \U00002B50\nมูลค่า {} จำนวน {} รางวัล\n{}'.format(str(format(thirdprizeprice, ',d')),thirdprizeamount,thirdprizenum)
+        
+        result = f'สลากกินแบ่งรัฐบาลงวดที่ {day}/{month}/{year} \n{firstprize}{secondprize}{thirdprize}'
 
+        text_message = TextSendMessage(text=result)
+        line_bot_api.reply_message(reply_token,text_message)
+        
     if intent == 'แสดงผลเลขเด็ดสถิติ':
         data = scraping.getData(str(typeofstat))
         result = 'จากการเก็บข้อมูลตั้งแต่ปี 2533 \n\U00002B50ได้ข้อมูลเลขดังนี้\U00002B50\n'
@@ -295,7 +312,7 @@ def reply(intent,text,reply_token,id,disname,session,lottonum,object,date,dreamt
         
 
     if intent == 'แสดงวันที่สลากกินแบ่งรัฐบาลประกาศผลล่าสุด':
-        #text_message = TextSendMessage(text='Test เสดละเว้ยยยย')
+        #text_message = TextSendMessage(text='ทดสอบ Intent สำเร็จ')
 
         url = "https://thai-lottery-result.p.rapidapi.com/latest"
         response = requests.request("GET", url, headers=headers)
@@ -311,7 +328,7 @@ def reply(intent,text,reply_token,id,disname,session,lottonum,object,date,dreamt
         line_bot_api.reply_message(reply_token,text_message)
 
     if intent == 'วันที่สลากกินแบ่งรัฐบาลประกาศผล24งวดล่าสุด':
-        #text_message = TextSendMessage(text='Test เสดละเว้ยยยย')
+        #text_message = TextSendMessage(text='ทดสอบ Intent สำเร็จ')
 
         url = "https://thai-lottery-result.p.rapidapi.com/"
         querystring = {"page":"1"}
