@@ -122,6 +122,7 @@ def reply(intent,text,reply_token,id,disname,session,lottonum,object,date,dreamt
         for i in range(counter):
             userlotto = json_data["payload"]["results"][i]["number"]
             iswin = json_data["payload"]["results"][i]["isWin"]
+
             if iswin:
                 prizename = json_data["payload"]["results"][i]["result"][0]["name"]
                 prize = json_data["payload"]["results"][i]["result"][0]["prizeMoney"]
@@ -132,6 +133,7 @@ def reply(intent,text,reply_token,id,disname,session,lottonum,object,date,dreamt
             temp = "\U000027A1หมายเลย {} {}\n{}\n".format(userlotto.zfill(6),prizename,prize)  
             ans += temp
             
+            prizename = ''
 
         text_message = TextSendMessage(text='ผลสลากกินแบ่งรัฐบาลของคุณ\n{}'.format(ans[:len(ans) - 1]))
         line_bot_api.reply_message(reply_token,text_message)
@@ -165,6 +167,9 @@ def reply(intent,text,reply_token,id,disname,session,lottonum,object,date,dreamt
         firstprizenum = ''
         secondprizenum = ''
         thirdprizenum = ''
+        lasttwodigitnum = ''
+        lastthreedigitnum = ''
+        firstthreedigitnum = ''
 
         firstprize_data = json_data['payload']['results']['FirstPrize']
         firstprizeprice = firstprize_data['info']['prizeMoney']
@@ -186,9 +191,29 @@ def reply(intent,text,reply_token,id,disname,session,lottonum,object,date,dreamt
         for i in range(thirdprizeamount):
             thirdprizenum += '\U00002796 หมายเลข: '+str(thirdprize_data['numbers'][i]).zfill(6)+'\n'
         thirdprize = '\U00002B50 รางวัลที่ 3 \U00002B50\nมูลค่า {} จำนวน {} รางวัล\n{}'.format(str(format(thirdprizeprice, ',d')),thirdprizeamount,thirdprizenum)
-        
-        result = f'สลากกินแบ่งรัฐบาลงวดที่ {day}/{month}/{year} \n{firstprize}{secondprize}{thirdprize}'
 
+        firstthreedigit_data = json_data['payload']['results']['FirstThreeDigitsPrize']
+        firstthreedigitprice = firstthreedigit_data['info']['prizeMoney']
+        firstthreedigitamount = firstthreedigit_data['info']['amount']
+        for i in range(firstthreedigitamount):
+            firstthreedigitnum += '\U00002796 หมายเลข: '+str(firstthreedigit_data['numbers'][i]).zfill(3)+'\n'
+        firstthreedigitprize = '\U00002B50 รางวัลเลข 3 ตัวหน้า \U00002B50\nมูลค่า {} จำนวน {} รางวัล\n{}'.format(str(format(firstthreedigitprice, ',d')),firstthreedigitamount,firstthreedigitnum)
+
+        lastthreedigit_data = json_data['payload']['results']['LastThreeDigitsPrize']
+        lastthreedigitprice = lastthreedigit_data['info']['prizeMoney']
+        lastthreedigitamount = lastthreedigit_data['info']['amount']
+        for i in range(lastthreedigitamount):
+            lastthreedigitnum += '\U00002796 หมายเลข: '+str(lastthreedigit_data['numbers'][i]).zfill(3)+'\n'
+        lastthreedigitprize = '\U00002B50 รางวัลเลข 3 ตัวท้าย \U00002B50\nมูลค่า {} จำนวน {} รางวัล\n{}'.format(str(format(lastthreedigitprice, ',d')),lastthreedigitamount,lastthreedigitnum)
+
+        lasttwodigit_data = json_data['payload']['results']['LastTwoDigitsPrize']
+        lasttwodigitprice = lasttwodigit_data['info']['prizeMoney']
+        lasttwodigitamount = lasttwodigit_data['info']['amount']
+        for i in range(lasttwodigitamount):
+            lasttwodigitnum += '\U00002796 หมายเลข: '+str(lasttwodigit_data['numbers'][i]).zfill(2)+'\n'
+        lasttwodigitprize = '\U00002B50 รางวัลเลข 2 ตัวท้าย \U00002B50\nมูลค่า {} จำนวน {} รางวัล\n{}'.format(str(format(lasttwodigitprice, ',d')),lasttwodigitamount,lasttwodigitnum)
+
+        result = f'สลากกินแบ่งรัฐบาลงวดที่ {day}/{month}/{year} \n{firstprize}{firstthreedigitprize}{lastthreedigitprize}{lasttwodigitprize}{secondprize}{thirdprize}'
         text_message = TextSendMessage(text=result)
         line_bot_api.reply_message(reply_token,text_message)
 
@@ -219,6 +244,9 @@ def reply(intent,text,reply_token,id,disname,session,lottonum,object,date,dreamt
         firstprizenum = ''
         secondprizenum = ''
         thirdprizenum = ''
+        lasttwodigitnum = ''
+        lastthreedigitnum = ''
+        firstthreedigitnum = ''
 
         firstprize_data = json_data['payload']['results']['FirstPrize']
         firstprizeprice = firstprize_data['info']['prizeMoney']
@@ -240,9 +268,29 @@ def reply(intent,text,reply_token,id,disname,session,lottonum,object,date,dreamt
         for i in range(thirdprizeamount):
             thirdprizenum += '\U00002796 หมายเลข: '+str(thirdprize_data['numbers'][i]).zfill(6)+'\n'
         thirdprize = '\U00002B50 รางวัลที่ 3 \U00002B50\nมูลค่า {} จำนวน {} รางวัล\n{}'.format(str(format(thirdprizeprice, ',d')),thirdprizeamount,thirdprizenum)
-        
-        result = f'สลากกินแบ่งรัฐบาลงวดที่ {day}/{month}/{year} \n{firstprize}{secondprize}{thirdprize}'
 
+        firstthreedigit_data = json_data['payload']['results']['FirstThreeDigitsPrize']
+        firstthreedigitprice = firstthreedigit_data['info']['prizeMoney']
+        firstthreedigitamount = firstthreedigit_data['info']['amount']
+        for i in range(firstthreedigitamount):
+            firstthreedigitnum += '\U00002796 หมายเลข: '+str(firstthreedigit_data['numbers'][i]).zfill(3)+'\n'
+        firstthreedigitprize = '\U00002B50 รางวัลเลข 3 ตัวหน้า \U00002B50\nมูลค่า {} จำนวน {} รางวัล\n{}'.format(str(format(firstthreedigitprice, ',d')),firstthreedigitamount,firstthreedigitnum)
+
+        lastthreedigit_data = json_data['payload']['results']['LastThreeDigitsPrize']
+        lastthreedigitprice = lastthreedigit_data['info']['prizeMoney']
+        lastthreedigitamount = lastthreedigit_data['info']['amount']
+        for i in range(lastthreedigitamount):
+            lastthreedigitnum += '\U00002796 หมายเลข: '+str(lastthreedigit_data['numbers'][i]).zfill(3)+'\n'
+        lastthreedigitprize = '\U00002B50 รางวัลเลข 3 ตัวท้าย \U00002B50\nมูลค่า {} จำนวน {} รางวัล\n{}'.format(str(format(lastthreedigitprice, ',d')),lastthreedigitamount,lastthreedigitnum)
+
+        lasttwodigit_data = json_data['payload']['results']['LastTwoDigitsPrize']
+        lasttwodigitprice = lasttwodigit_data['info']['prizeMoney']
+        lasttwodigitamount = lasttwodigit_data['info']['amount']
+        for i in range(lasttwodigitamount):
+            lasttwodigitnum += '\U00002796 หมายเลข: '+str(lasttwodigit_data['numbers'][i]).zfill(2)+'\n'
+        lasttwodigitprize = '\U00002B50 รางวัลเลข 2 ตัวท้าย \U00002B50\nมูลค่า {} จำนวน {} รางวัล\n{}'.format(str(format(lasttwodigitprice, ',d')),lasttwodigitamount,lasttwodigitnum)
+
+        result = f'สลากกินแบ่งรัฐบาลงวดที่ {day}/{month}/{year} \n{firstprize}{firstthreedigitprize}{lastthreedigitprize}{lasttwodigitprize}{secondprize}{thirdprize}'
         text_message = TextSendMessage(text=result)
         line_bot_api.reply_message(reply_token,text_message)
         
