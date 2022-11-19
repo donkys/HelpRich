@@ -1,0 +1,1 @@
+"{\"success\":true,\"payload\":{\"id\":\"20221016\",\"date\":{\"day\":16,\"month\":10,\"year\":2022},\"results\":[{\"number\":\"123456\",\"result\":[],\"isWin\":false},{\"number\":\"613106\",\"result\":[{\"id\":\"FirstPrize\",\"name\":\"\u0e23\u0e32\u0e07\u0e27\u0e31\u0e25\u0e17\u0e35\u0e48 1\",\"amount\":1,\"prizeMoney\":6000000}],\"isWin\":true}]}}"

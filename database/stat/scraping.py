@@ -196,7 +196,7 @@ def getData(column:str):
     #conn.close()
     return str
 
-print(getData('TWOUP'))
+#print(getData('TWOUP'))
 
 #Close connection database.
 

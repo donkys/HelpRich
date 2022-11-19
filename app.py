@@ -75,7 +75,7 @@ def reply(intent,text,reply_token,id,disname,session,lottonum,object,date,dreamt
         }
 
     if intent == 'ทดสอบ':
-        text_message = TextSendMessage(text='IhereDODO')
+        text_message = TextSendMessage(text='โค้ดสามารถรันได้ปกติ\U00002B50')
         line_bot_api.reply_message(reply_token,text_message)
 
     if intent == 'ตรวจหวย':
@@ -125,15 +125,15 @@ def reply(intent,text,reply_token,id,disname,session,lottonum,object,date,dreamt
             if iswin:
                 prizename = json_data["payload"]["results"][i]["result"][0]["name"]
                 prize = json_data["payload"]["results"][i]["result"][0]["prizeMoney"]
-                prizename = "ถูก"+prizename
-                prize = "มูลค่า "+str(prize)+" บาท"
+                prizename = "\nถูก"+prizename+" \U00002705"
+                prize = "มูลค่า "+str(format(prize, ',d'))+" บาท"
             else:
-                prize = 'ไม่ถูกรางวัล T_T'
-            temp = "หมายเลย {} {}\n{}\n".format(userlotto.zfill(6),prizename,prize)  
+                prize = 'เสียใจด้วยคุณไม่ถูกรางวัล \U0000274C'
+            temp = "\U000027A1หมายเลย {} {}\n{}\n".format(userlotto.zfill(6),prizename,prize)  
             ans += temp
             
 
-        text_message = TextSendMessage(text='ผลสลากกินแบ่งรัฐบาลของคุณ\n{}'.format(ans))
+        text_message = TextSendMessage(text='ผลสลากกินแบ่งรัฐบาลของคุณ\n{}'.format(ans[:len(ans) - 1]))
         line_bot_api.reply_message(reply_token,text_message)
 
     if intent == 'ผลสลากกินแบ่งงวดล่าสุด':
@@ -231,13 +231,13 @@ def reply(intent,text,reply_token,id,disname,session,lottonum,object,date,dreamt
 
     if intent == 'แสดงผลเลขเด็ดสถิติ':
         data = scraping.getData(str(typeofstat))
-        result = 'จากการเก็บข้อมูลตั้งแต่ปี 2533 ได้ข้อมูลเลขดังนี้\n'
+        result = 'จากการเก็บข้อมูลตั้งแต่ปี 2533 \n\U00002B50ได้ข้อมูลเลขดังนี้\U00002B50\n'
 
         for i in range(len(data)):
             if i == (len(data) - 1):
-                result = result + 'หมายเลข '+str(data[i]['number'])+' ออกมา '+str(data[i]['sum'])+' ครั้ง'
+                result = result + 'หมายเลข '+str(data[i]['number'])+'\tเคยออกมา '+str(data[i]['sum'])+'ครั้ง'
             else:
-                result = result + 'หมายเลข '+str(data[i]['number'])+' ออกมา '+str(data[i]['sum'])+' ครั้ง\n'
+                result = result + 'หมายเลข '+str(data[i]['number'])+'\tเคยออกมา '+str(data[i]['sum'])+'ครั้ง\n'
 
         print(result)
         text_message = TextSendMessage(text=result)
@@ -288,7 +288,7 @@ def reply(intent,text,reply_token,id,disname,session,lottonum,object,date,dreamt
             else:
                 threedigit += ' '+str(x).zfill(3)
 
-        result = '\U0001F634 ผลลัพธ์การทำนายฝันของคุณ\n'+ocassion+'\n\U00002B50 เลขนำโชคของคุณ\nเลข 2 ตัวท้าย\n'+twodigit+'\nเลข 3 ตัวท้าย\n'+threedigit
+        result = '\U0001F634 ผลลัพธ์การทำนายฝันของคุณ\n'+ocassion+'\n\U00002B50 เลขนำโชคของคุณ\nเลข 2 ตัวท้าย\n   '+twodigit+'\nเลข 3 ตัวท้าย\n   '+threedigit
         #result = 'dreamtype = '+dreamtype+'\ndate = '+str(date)+'object = '+object+'\nfirstLetter = '+firstLetter+' ocassion = '+ocassion
         text_message = TextSendMessage(text=result)
         line_bot_api.reply_message(reply_token,text_message)
@@ -307,7 +307,7 @@ def reply(intent,text,reply_token,id,disname,session,lottonum,object,date,dreamt
         month = json_data['payload'][0]['date']['month']
         year = json_data['payload'][0]['date']['year']
 
-        text_message = TextSendMessage(text='สลากกินแบ่งรัฐบางวดล่าสุดคือวันที่ {}/{}/{} '.format(day,str(month).zfill(2),year))
+        text_message = TextSendMessage(text='สลากกินแบ่งรัฐบางวดล่าสุดคือวันที่\n \U00002B50 {}/{}/{}  \U00002B50'.format(day,str(month).zfill(2),year))
         line_bot_api.reply_message(reply_token,text_message)
 
     if intent == 'วันที่สลากกินแบ่งรัฐบาลประกาศผล24งวดล่าสุด':
