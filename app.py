@@ -65,7 +65,7 @@ def callback():
 
 @app.route('/', methods=['GET'])
 def main():
-    return 'Hi'
+    return '<h1>HELLO KUB<\h>'
 
 def reply(intent,text,reply_token,id,disname,session,lottonum,object,date,dreamtype,typeofstat):
     
