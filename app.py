@@ -366,13 +366,13 @@ def getcache(jsonfile:str):
 
     path = "cache"
     # Writing to sample.json
-    with open(os.path.join(path, file_name), 'w') as outfile:
+    with open(os.path.join(path, file_name), 'w',encoding="utf8") as outfile:
         outfile.write(json_object)
 
 def finddata(file_name:str, path:str):
     file_name += '.json'
     # getdata
-    with open(os.path.join(path, file_name), 'r') as outfile:
+    with open(os.path.join(path, file_name), 'r',encoding="utf8") as outfile:
         return json.load(outfile)
 
 if __name__ == "__main__":
